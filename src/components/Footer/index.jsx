@@ -1,13 +1,17 @@
 import styled from 'styled-components'
 import logo from '../../assets/logo-white.svg'
 
+
 const StyledFooter = styled.footer`
+    position: relative;
+    width:100%;
+    height: 210px;
     background-color: #000;
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 210px;
     padding-top: 66px;
+    margin-top: 50px;
 `
 const CopyrightsParagraph = styled.p`
     color: #FFF;
@@ -27,5 +31,7 @@ function Footer(){
         </StyledFooter>
     )
 }
+
+  
 
 export default Footer

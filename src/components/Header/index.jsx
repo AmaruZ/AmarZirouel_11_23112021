@@ -22,7 +22,9 @@ const StyledNav = styled.nav`
 function Header(){
     return(
         <StyledHeader>
-            <KasaLogo src={logo} alt="Kasa" />
+            <StyledLink to="/">
+                <KasaLogo src={logo} alt="Kasa" />
+            </StyledLink>
             <StyledNav>
                 <StyledLink to="/">Accueil</StyledLink>
                 <StyledLink to="/about">A Propos</StyledLink>

@@ -1,9 +1,10 @@
+import Cover from "../../components/Cover";
 
 
 function Home() {
   return (
     <div>
-      Accueil
+      <Cover></Cover>
     </div>
   );
 }
