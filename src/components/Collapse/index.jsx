@@ -13,7 +13,7 @@ const CollapseButton = styled.button`
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    height: 47px;
+    height: ${(props) => props.$type === 'medium' ? `47px;` : props.$type === 'big' && '52px'};
     color: white;
     background-color: ${colors.primary};
     border: none;
@@ -54,13 +54,14 @@ const Chevron = styled.img`
             ? `
             transform: rotate(0);
             transition: transform 0.3s;
-            `: `
+            `
+            : `
             transform: rotate(-180deg);
             transition: transform 0.3s;
         `}
 `
 
-function Collapse({ collapsed, children, title }) {
+function Collapse({ type, collapsed, children, title }) {
     const [isCollapse, setisCollapsed] = useState(collapsed)
     const inputRef = useRef(0)
 
@@ -74,6 +75,7 @@ function Collapse({ collapsed, children, title }) {
                 onClick={() => {
                     setisCollapsed(!isCollapse)
                 }}
+                $type={type}
             >
                 {title} <Chevron src={chevron} alt="" $isCollaps={isCollapse} />
             </CollapseButton>
