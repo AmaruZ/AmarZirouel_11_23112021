@@ -3,8 +3,14 @@ import styled from 'styled-components'
 import colors from '../../utils/styles/colors'
 import chevron from '../../assets/chevron-down.svg'
 
-const CollapseContainer = styled.div`
+const CollapsibleContainer = styled.div`
     margin-top: 30px;
+    ${(props) => props.$type === 'medium' ?
+    `
+     width: 100%;` : props.$type === 'big' && 
+     `
+     width: 45%;
+     `}
 `
 
 const CollapseButton = styled.button`
@@ -13,7 +19,12 @@ const CollapseButton = styled.button`
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    height: ${(props) => props.$type === 'medium' ? `47px;` : props.$type === 'big' && '52px'};
+    ${(props) =>
+        props.$type === 'medium'
+            ? `height: 47px;`
+            : props.$type === 'big' &&
+              `height: 52px;
+      `}
     color: white;
     background-color: ${colors.primary};
     border: none;
@@ -32,9 +43,10 @@ const CollapseParentContent = styled.div`
             overflow: hidden;
             transition: height 0.2s ease-out;`
             : ` height: ${
-                  props.$height ? `${props.$height.toString()}px` : 'auto'
-              };
-            transition: height 0.2s ease-out;`}
+                  props.$height ? `${props.$height.toString()}px` : 'auto' 
+                              };
+            transition: height 0.2s ease-out;`
+        }
 `
 
 const CollapseContent = styled.div`
@@ -45,6 +57,8 @@ const CollapseContent = styled.div`
     padding: 35px 18px 20px 18px;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
+    ${props =>
+        props.$type === "big" && "height: 250px;"}
 `
 
 const Chevron = styled.img`
@@ -61,7 +75,7 @@ const Chevron = styled.img`
         `}
 `
 
-function Collapse({ type, collapsed, children, title }) {
+function Collapsible({ type, collapsed, children, title }) {
     const [isCollapse, setisCollapsed] = useState(collapsed)
     const inputRef = useRef(0)
 
@@ -70,7 +84,7 @@ function Collapse({ type, collapsed, children, title }) {
     }, [])
 
     return (
-        <CollapseContainer>
+        <CollapsibleContainer $type={type}>
             <CollapseButton
                 onClick={() => {
                     setisCollapsed(!isCollapse)
@@ -83,11 +97,12 @@ function Collapse({ type, collapsed, children, title }) {
                 $isCollapse={isCollapse}
                 aria-expanded={isCollapse}
                 $height={inputRef.current.scrollHeight}
+                $type={type}
             >
-                <CollapseContent ref={inputRef}>{children}</CollapseContent>
+                <CollapseContent ref={inputRef} $type={type}>{children}</CollapseContent>
             </CollapseParentContent>
-        </CollapseContainer>
+        </CollapsibleContainer>
     )
 }
 
-export default Collapse
+export default Collapsible
