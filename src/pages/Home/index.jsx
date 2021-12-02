@@ -13,32 +13,38 @@ const CardsContainer = styled.div`
     margin-top: 43px;
     border-radius: 25px;
     padding: 20px;
-    
+    @media screen and (max-width: 480px) {
+        padding:0 5%;
+        background: none;
+        margin-top: 10px;
+    }
 `
 
 function Home() {
     const [apartmentsList, setApartmentsList] = useState([])
 
-    useEffect(()=>{
-        async function fetchApartments(){
-            try{
+    useEffect(() => {
+        async function fetchApartments() {
+            try {
                 const response = await fetch('./logements.json')
-
                 const apartments = await response.json()
                 setApartmentsList(apartments)
-            } finally{
-                
-            } 
-         }
-         fetchApartments() 
-      }, [] )
-    
+            } finally {
+            }
+        }
+        fetchApartments()
+    }, [])
+
     return (
         <>
             <Cover pic={pic}>Chez vous, partout et ailleurs</Cover>
             <CardsContainer>
-                {apartmentsList.map((apartment)=>(
-                    <Card key={apartment.id} title={apartment.title} id={apartment.id}/>
+                {apartmentsList.map((apartment) => (
+                    <Card
+                        key={apartment.id}
+                        title={apartment.title}
+                        id={apartment.id}
+                    />
                 ))}
             </CardsContainer>
         </>

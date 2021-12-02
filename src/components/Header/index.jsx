@@ -4,6 +4,9 @@ import { StyledLink } from '../../utils/styles/Atoms'
 
 const KasaLogo = styled.img`
     height: 68px;
+    @media screen and (max-width: 480px) {
+        height: 47px;
+    }
 `
 
 const StyledHeader = styled.header`
@@ -11,12 +14,22 @@ const StyledHeader = styled.header`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  @media screen and (max-width: 480px) {
+    padding: 20px 5%;
+    }
+
 `
 
 const StyledNav = styled.nav`
     display: flex;
     width: 250px;
     justify-content: space-between;
+    @media screen and (max-width: 480px) {
+        width: 50%;
+        justify-content: flex-end;
+    }
+
+
 `
 
 function Header(){

@@ -17,6 +17,11 @@ const StyledCard = styled(Link)`
     margin: 30px;
     border-radius: 20px;
     text-decoration: none;
+    @media screen and (max-width: 480px) {
+        margin: 10px 0;
+        height: 255px;
+        width: 100%;
+    }
 `
 const TitleCard = styled.span`
     font-family: Montserrat;

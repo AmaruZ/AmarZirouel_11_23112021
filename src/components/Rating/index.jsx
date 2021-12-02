@@ -4,9 +4,17 @@ import colors from '../../utils/styles/colors'
 const StarsContainer = styled.div`
     display: flex;
     margin-top: 20px;
+    @media screen and (max-width: 480px) {
+        width: 40%;
+        margin-top: 10px;
+    }
 `
 const StyledSvg = styled.svg`
     margin-left: 10px;
+    @media screen and (max-width: 480px) {
+        margin-left: 0;
+        margin-right: 5px;
+    }
 `
 
 function Rating({ rate }) {

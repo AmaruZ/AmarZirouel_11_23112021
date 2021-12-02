@@ -11,6 +11,9 @@ const CollapsibleContainer = styled.div`
      `
      width: 45%;
      `}
+     @media screen and (max-width: 480px) {
+        width: 100%;
+    }
 `
 
 const CollapseButton = styled.button`
@@ -33,6 +36,10 @@ const CollapseButton = styled.button`
     cursor: pointer;
     border-radius: 10px;
     padding-left: 18px;
+    @media screen and (max-width: 480px) {
+        height: 30px;
+        font-size: 13px;
+    }
 `
 const CollapseParentContent = styled.div`
     margin-top: -15px;
@@ -59,6 +66,10 @@ const CollapseContent = styled.div`
     border-bottom-right-radius: 10px;
     ${props =>
         props.$type === "big" && "height: 250px;"}
+        @media screen and (max-width: 480px) {
+            font-size: 14px;
+            height: auto;
+        }
 `
 
 const Chevron = styled.img`
@@ -73,6 +84,10 @@ const Chevron = styled.img`
             transform: rotate(-180deg);
             transition: transform 0.3s;
         `}
+        @media screen and (max-width: 480px) {
+            width: 20px;
+            margin-right: 10px;
+        }
 `
 
 function Collapsible({ type, collapsed, children, title }) {

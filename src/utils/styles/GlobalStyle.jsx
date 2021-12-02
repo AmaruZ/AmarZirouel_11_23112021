@@ -13,6 +13,9 @@ const StyledGlobalStyle = createGlobalStyle`
         display: flex;
         flex-direction: column;
         padding: 0 5%;
+        @media screen and (max-width: 480px) {
+            padding:0;
+        }
     }
     ul{
         list-style-type: none;

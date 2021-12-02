@@ -7,32 +7,58 @@ import Gallery from '../../components/Gallery'
 import Rating from '../../components/Rating'
 import Tag from '../../components/Tag'
 
+const StyledMain = styled.main`
+    @media screen and (max-width: 480px) {
+        padding: 0 5%;
+    }
+`
+
 const CollapsiblesContainer = styled.section`
     display: flex;
     justify-content: space-between;
+    @media screen and (max-width: 480px) {
+        flex-direction: column;
+    }
 `
 const StyledSection = styled.section`
     display: flex;
     justify-content: space-between;
     margin-top: 30px;
+    @media screen and (max-width: 480px) {
+        flex-direction: column;
+        margin-top: 15px;
+    }
 `
 
-const LeftCol = styled.div``
+const LeftCol = styled.div`
+`
 
 const RightCol = styled.div`
     display: flex;
     flex-direction: column;
     align-items: flex-end;
+    @media screen and (max-width: 480px) {
+        flex-direction: row-reverse;
+        align-items: center;
+        justify-content: space-between;
+    }
 `
 
 const StyledTitle = styled.h2`
     font-weight: 500;
     font-size: 36px;
+    @media screen and (max-width: 480px) {
+        font-size: 18px;
+    }
 `
 
 const StyledLocation = styled.p`
     font-weight: 500;
     font-size: 18px;
+    @media screen and (max-width: 480px) {
+        font-size: 14px;
+        margin-top: 5px;
+    }
 `
 
 const TagWrapper = styled.div`
@@ -94,7 +120,7 @@ function Apartment() {
             ) : apartment ? (
                 <>
                     {
-                        <main>
+                        <StyledMain>
                             <Gallery pictures={apartment.pictures} />
                             <StyledSection>
                                 <LeftCol>
@@ -138,7 +164,7 @@ function Apartment() {
                                     </ul>
                                 </Collapsible>
                             </CollapsiblesContainer>
-                        </main>
+                        </StyledMain>
                     }
                 </>
             ) : (

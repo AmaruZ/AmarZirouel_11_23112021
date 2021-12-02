@@ -1,5 +1,5 @@
-import styled from "styled-components"
-import colors from "../../utils/styles/colors"
+import styled from 'styled-components'
+import colors from '../../utils/styles/colors'
 
 const StyledTag = styled.p`
     min-width: 115px;
@@ -14,13 +14,14 @@ const StyledTag = styled.p`
     weight: 500;
     padding: 3px 20px;
     margin-right: 10px;
-
+    @media screen and (max-width: 480px) {
+        font-size: 10px;
+        min-width: 84px;
+    }
 `
 
-function Tag({children}){
-    return (
-        <StyledTag>{children}</StyledTag>
-    )
+function Tag({ children }) {
+    return <StyledTag>{children}</StyledTag>
 }
 
 export default Tag

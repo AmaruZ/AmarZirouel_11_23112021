@@ -11,6 +11,11 @@ export const StyledLink = styled(Link)`
     &:hover {
         text-decoration: underline;
     }
+    @media screen and (max-width: 480px) {
+        font-size: 12px;
+        text-transform: uppercase;
+        margin-left: 10px;
+    }
 `
 export const ChevronBtn = styled.button`
     position: absolute;
@@ -21,14 +26,24 @@ export const ChevronBtn = styled.button`
     border: none;
     cursor: pointer;
     color: rgba(0, 0, 0, 0);
-
+    @media screen and (max-width: 480px) {
+        width: 30px;
+        height: 20px;
+        font-size: 5px;
+    }
     ${(props) =>
         props.$direction === 'right'
             ? ` right: 20px;
-                transform: rotate(-90deg) translateX(25%);`
+                transform: rotate(-90deg) translateX(25%);
+                @media screen and (max-width: 480px) {
+                    right: 2%;
+                }`
             : props.$direction === 'left' &&
               ` left: 20px;
-              transform: rotate(90deg) translateX(-25%);`
+              transform: rotate(90deg) translateX(-25%);
+              @media screen and (max-width: 480px) {
+                left: 2%;
+            }`
   }
     font-size: 10px;
 `
