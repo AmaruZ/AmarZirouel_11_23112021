@@ -1,0 +1,49 @@
+.card__container {
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    justify-content: flex-end;
+    width: 340px;
+    height: 340px;
+    background: #ff6060;
+    overflow: hidden;
+    background: linear-gradient(
+        0deg,
+        rgba(119, 48, 48, 1) 0%,
+        rgba(255, 96, 96, 1) 100%
+    );
+    margin: 30px;
+    border-radius: 20px;
+    text-decoration: none;
+}
+
+.card__cover {
+    height: 100%;
+    object-fit: cover;
+    filter: contrast(80%);
+    transition: height 0.2s;
+}
+
+.card__cover:hover {
+    height: 120%;
+    transition: height 0.2s;
+}
+
+.card__title {
+    position: absolute;
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    color: white;
+    margin: 20px;
+    height: 52px;
+}
+
+@media screen and (max-width: 480px) {
+    .card__container {
+        margin: 10px 0;
+        height: 255px;
+        width: 100%;
+    }
+}

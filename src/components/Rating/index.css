@@ -1,0 +1,19 @@
+.rating__container {
+    display: flex;
+    margin-top: 20px;
+}
+
+.rating__star {
+    margin-left: 10px;
+}
+
+@media screen and (max-width: 480px) {
+    .rating__container {
+        width: 40%;
+        margin-top: 10px;
+    }
+    .rating__star {
+        margin-left: 0;
+        margin-right: 5px;
+    }
+}

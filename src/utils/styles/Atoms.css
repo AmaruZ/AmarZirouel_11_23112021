@@ -1,0 +1,51 @@
+.btn__chevron {
+    position: absolute;
+    height: 47px;
+    width: 80px;
+    top: 50%;
+    font-size: 10px;
+    background: no-repeat center/100% url('../../assets/chevron-down.svg');
+    border: none;
+    cursor: pointer;
+    color: rgba(0, 0, 0, 0);
+}
+
+.btn__chevron-right {
+    right: 20px;
+    transform: rotate(-90deg) translateX(25%);
+}
+
+.btn__chevron-left {
+    left: 20px;
+    transform: rotate(90deg) translateX(-25%);
+}
+
+.link {
+    color: #ff6060;
+    text-decoration: none;
+    font-size: 24px;
+    text-align: center;
+}
+
+.link:hover {
+    text-decoration: underline;
+}
+
+@media screen and (max-width: 480px) {
+    .btn__chevron {
+        width: 30px;
+        height: 20px;
+        font-size: 5px;
+    }
+    .btn__chevron-right {
+        right: 2%;
+    }
+    .btn__chevron-left {
+        left: 2%;
+    }
+    .link {
+        font-size: 12px;
+        text-transform: uppercase;
+        margin-left: 10px;
+    }
+}

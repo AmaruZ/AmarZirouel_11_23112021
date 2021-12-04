@@ -1,177 +1,117 @@
-import { useEffect, useState } from 'react'
-import { useParams } from 'react-router'
-import styled from 'styled-components'
+import { Component } from 'react'
 import Collapsible from '../../components/Collapsible'
 import Error from '../../components/Error'
 import Gallery from '../../components/Gallery'
+import Owner from '../../components/Owner'
 import Rating from '../../components/Rating'
 import Tag from '../../components/Tag'
+import { withRouter } from './withRouter'
+import './index.css'
 
-const StyledMain = styled.main`
-    @media screen and (max-width: 480px) {
-        padding: 0 5%;
-    }
-`
-
-const CollapsiblesContainer = styled.section`
-    display: flex;
-    justify-content: space-between;
-    @media screen and (max-width: 480px) {
-        flex-direction: column;
-    }
-`
-const StyledSection = styled.section`
-    display: flex;
-    justify-content: space-between;
-    margin-top: 30px;
-    @media screen and (max-width: 480px) {
-        flex-direction: column;
-        margin-top: 15px;
-    }
-`
-
-const LeftCol = styled.div`
-`
-
-const RightCol = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    @media screen and (max-width: 480px) {
-        flex-direction: row-reverse;
-        align-items: center;
-        justify-content: space-between;
-    }
-`
-
-const StyledTitle = styled.h2`
-    font-weight: 500;
-    font-size: 36px;
-    @media screen and (max-width: 480px) {
-        font-size: 18px;
-    }
-`
-
-const StyledLocation = styled.p`
-    font-weight: 500;
-    font-size: 18px;
-    @media screen and (max-width: 480px) {
-        font-size: 14px;
-        margin-top: 5px;
-    }
-`
-
-const TagWrapper = styled.div`
-    display: flex;
-    margin-top: 20px;
-`
-const OwnerDiv = styled.div`
-    display: flex;
-    align-items: flex-start;
-`
-
-const OwnerName = styled.p`
-    font-weight: 500;
-    font-size: 18px;
-    padding-top: 8px;
-    text-align: end;
-    margin-right: 10px;
-    line-height: 142.6%;
-    width: 90px;
-`
-const OwnerAvatar = styled.img`
-    width: 64px;
-    height: 64px;
-    border-radius: 50%;
-`
-
-function Apartment() {
-    const { id } = useParams()
-    const [apartmentsList, setApartmentsList] = useState([])
-    const [error, setError] = useState(false)
-    const [isDataLoading, setDataLoading] = useState(true)
-
-    useEffect(() => {
-        async function searchApartment() {
-            setDataLoading(true)
-            try {
-                const response = await fetch('./../logements.json')
-                const apartments = await response.json()
-                setApartmentsList(apartments)
-            } catch (err) {
-                console.log(err)
-                setError(true)
-            } finally {
-                setDataLoading(false)
-            }
+class Apartment extends Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            isDataLoading: true,
+            error: false,
+            apartmentsList: [],
+            apartment: {},
         }
-        searchApartment()
-    }, [])
-
-    const apartment = apartmentsList.find((apartment) => apartment.id === id)
-
-    if (error) {
-        return <Error />
     }
-    return (
-        <>
-            {isDataLoading ? (
-                'chargement'
-            ) : apartment ? (
-                <>
-                    {
-                        <StyledMain>
-                            <Gallery pictures={apartment.pictures} />
-                            <StyledSection>
-                                <LeftCol>
-                                    <StyledTitle>{apartment.title}</StyledTitle>
-                                    <StyledLocation>
-                                        {apartment.location}
-                                    </StyledLocation>
-                                    <TagWrapper>
-                                        {apartment.tags.map((tag) => (
-                                            <Tag key={id + tag}>{tag}</Tag>
-                                        ))}
-                                    </TagWrapper>
-                                </LeftCol>
 
-                                <RightCol>
-                                    <OwnerDiv>
-                                        <OwnerName>
-                                            {apartment.host.name}
-                                        </OwnerName>
-                                        <OwnerAvatar
-                                            src={apartment.host.picture}
-                                            alt={apartment.host.name}
+    componentDidMount() {
+        this.setState({ isDataLoading: true })
+        const url = './../logements.json'
+        fetch(url)
+            .then((response) => response.json())
+            .then((data) => {
+                this.setState({ apartmentsList: data })
+                this.setState({
+                    apartment: this.state.apartmentsList.find(
+                        (apart) => apart.id === this.props.id.id
+                    ),
+                })
+            })
+            .finally(() => {
+                this.setState({ isDataLoading: false })
+            })
+            .catch((error) => {
+                console.log(`Erreur au fetch: ${error}`)
+                this.setState({ error: true })
+            })
+    }
+
+    render() {
+        return (
+            <>
+                {this.state.isDataLoading ? (
+                    'chargement'
+                ) : this.state.apartment ? (
+                    <>
+                        {
+                            <main className="apartment__main">
+                                <Gallery
+                                    pictures={this.state.apartment.pictures}
+                                />
+                                <section className="apartment__infos">
+                                    <div>
+                                        <h2 className="apartment__title">
+                                            {this.state.apartment.title}
+                                        </h2>
+                                        <p className="apartment__location">
+                                            {this.state.apartment.location}
+                                        </p>
+                                        <Tag
+                                            tags={this.state.apartment.tags}
+                                            id={this.state.apartment.id}
                                         />
-                                    </OwnerDiv>
-                                    <Rating rate={apartment.rating} />
-                                </RightCol>
-                            </StyledSection>
-                            <CollapsiblesContainer>
-                                <Collapsible title="Description" type="big">
-                                    {apartment.description}
-                                </Collapsible>
-                                <Collapsible title="Équipements" type="big">
-                                    <ul>
-                                        {apartment.equipments.map(
-                                            (equipement) => (
-                                                <li key={id + equipement}>
-                                                    {equipement}
-                                                </li>
-                                            )
-                                        )}
-                                    </ul>
-                                </Collapsible>
-                            </CollapsiblesContainer>
-                        </StyledMain>
-                    }
-                </>
-            ) : (
-                <Error />
-            )}
-        </>
-    )
+                                    </div>
+
+                                    <div className="apartment__col-right">
+                                        <Owner
+                                            name={
+                                                this.state.apartment.host.name
+                                            }
+                                            picture={
+                                                this.state.apartment.host
+                                                    .picture
+                                            }
+                                        />
+                                        <Rating
+                                            rate={this.state.apartment.rating}
+                                        />
+                                    </div>
+                                </section>
+                                <section className="apartment__collapsibles">
+                                    <Collapsible title="Description" type="big">
+                                        {this.state.apartment.description}
+                                    </Collapsible>
+                                    <Collapsible title="Équipements" type="big">
+                                        <ul>
+                                            {this.state.apartment.equipments.map(
+                                                (equipement) => (
+                                                    <li
+                                                        key={
+                                                            this.state.id +
+                                                            equipement
+                                                        }
+                                                    >
+                                                        {equipement}
+                                                    </li>
+                                                )
+                                            )}
+                                        </ul>
+                                    </Collapsible>
+                                </section>
+                            </main>
+                        }
+                    </>
+                ) : (
+                    <Error />
+                )}
+            </>
+        )
+    }
 }
 
-export default Apartment
+export default withRouter(Apartment)

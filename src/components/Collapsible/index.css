@@ -1,0 +1,85 @@
+.collapsible__container {
+    margin-top: 30px;
+}
+
+.collapsible__container-big {
+    width: 45%;
+}
+
+.collapsible__container-medium {
+    width: 100%;
+}
+
+.collapsible__button {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    color: white;
+    background-color: #ff6060;
+    border: none;
+    font-family: 'Montserrat';
+    font-size: 24px;
+    cursor: pointer;
+    border-radius: 10px;
+    padding-left: 18px;
+}
+
+.collapsible__button-big {
+    height: 52px;
+}
+
+.collapsible__button-medium {
+    height: 47px;
+}
+
+.collapsible__chevron {
+    margin-right: 30px;
+}
+
+.collapsible__chevron-down {
+    transform: rotate(0);
+    transition: transform 0.3s;
+}
+.collapsible__chevron-up {
+    transform: rotate(-180deg);
+    transition: transform 0.3s;
+}
+
+.collapsible__content-parent {
+    margin-top: -15px;
+}
+
+.collapsible__content {
+    background-color: #f4f4f4;
+    color: #ff6060;
+    font-size: 24px;
+    font-weight: 400;
+    padding: 35px 18px 20px 18px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.collapsible__content-big {
+    height: 270px;
+}
+
+@media screen and (max-width: 480px) {
+    .collapsible__button {
+        height: 30px;
+        font-size: 13px;
+    }
+    .collapsible__container {
+        width: 100%;
+    }
+    .collapsible__chevron {
+        width: 20px;
+        margin-right: 10px;
+    }
+    .collapsible__content {
+        font-size: 14px;
+        height: auto;
+    }
+    
+}

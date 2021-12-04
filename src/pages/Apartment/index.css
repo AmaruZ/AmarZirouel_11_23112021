@@ -1,0 +1,51 @@
+.apartment__infos {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+}
+
+.apartment__collapsibles {
+    display: flex;
+    justify-content: space-between;
+}
+
+.apartment__col-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.apartment__title {
+    font-weight: 500;
+    font-size: 36px;
+}
+
+.apartment__location {
+    font-weight: 500;
+    font-size: 18px;
+}
+
+@media screen and (max-width: 480px) {
+    .apartment__main {
+        padding: 0 5%;
+    }
+    .apartment__infos {
+        flex-direction: column;
+        margin-top: 15px;
+    }
+    .apartment__collapsibles {
+        flex-direction: column;
+    }
+    .apartment__col-right {
+        flex-direction: row-reverse;
+        align-items: center;
+        justify-content: space-between;
+    }
+    .apartment__title {
+        font-size: 18px;
+    }
+    .apartment__location {
+        font-size: 14px;
+        margin-top: 5px;
+    }
+}

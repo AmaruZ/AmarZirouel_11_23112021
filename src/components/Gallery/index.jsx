@@ -1,68 +1,59 @@
-import { useState } from 'react'
-import styled from 'styled-components'
-import { ChevronBtn } from '../../utils/styles/Atoms'
+import { Component } from 'react'
+import '../../utils/styles/Atoms.css'
+import './index.css'
 
-export const StyledSlider = styled.div`
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 415px;
-    border-radius: 25px;
-    overflow: hidden;
-    @media screen and (max-width: 480px) {
-        height: 255px;
-    }
-`
-
-export const SlideImage = styled.img`
-    object-fit: cover;
-    width: 100%;
-    border-radius: 25px;
-    @media screen and (max-width: 480px) {
-        height: 100%
-    }
-`
-
-const Numbering = styled.span`
-    position: absolute;
-    bottom: 5%;
-    color: white;
-    @media screen and (max-width: 480px) {
-        display: none;
-    }
-`
-
-function Gallery({ pictures }) {
-    const [current, setCurrent] = useState(0)
-    const length = pictures.length
-
-    const nextPic = () => {
-        setCurrent(current === length - 1 ? 0 : current + 1)
-    }
-    const prevPic = () => {
-        setCurrent(current === 0 ? length - 1 : current - 1)
+class Gallery extends Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            current: 0,
+        }
+        this.length = this.props.pictures.length
     }
 
-    return (
-        <StyledSlider>
-            <ChevronBtn onClick={prevPic} $direction="left">
-                Précédent
-            </ChevronBtn>
-            <ChevronBtn onClick={nextPic} $direction="right">
-                Suivant
-            </ChevronBtn>
-            <Numbering>
-                {current + 1}/{length}
-            </Numbering>
-            {pictures.map(
-                (pic, index) =>
-                    index === current && (
-                        <SlideImage key={pic} src={pic} alt="" />
-                    )
-            )}
-        </StyledSlider>
-    )
+    nextPic = () => {
+        this.state.current === this.length - 1
+            ? this.setState({ current: 0 })
+            : this.setState({ current: this.state.current + 1 })
+    }
+    prevPic = () => {
+        this.state.current === 0
+            ? this.setState({ current: this.length - 1 })
+            : this.setState({ current: this.state.current - 1 })
+    }
+
+    render() {
+        return (
+            <div className="gallery__container">
+                <button
+                    className="btn__chevron btn__chevron-left"
+                    onClick={this.prevPic}
+                >
+                    Précédent
+                </button>
+                <button
+                    className="btn__chevron btn__chevron-right"
+                    onClick={this.nextPic}
+                >
+                    Suivant
+                </button>
+                <span className="gallery__numbering">
+                    {this.state.current + 1}/{this.length}
+                </span>
+                {this.props.pictures.map(
+                    (pic, index) =>
+                        index === this.state.current && (
+                            <img
+                                className="gallery__picture"
+                                key={pic}
+                                src={pic}
+                                alt=""
+                            />
+                        )
+                )}
+            </div>
+        )
+    }
 }
 
 export default Gallery

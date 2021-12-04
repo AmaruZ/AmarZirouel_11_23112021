@@ -1,54 +1,47 @@
-import Cover from '../../components/Cover'
+import Cover from '../../components/Banner'
 import pic from '../../assets/home-pic.png'
-import styled from 'styled-components'
 import Card from '../../components/Card'
-import colors from '../../utils/styles/colors'
-import { useEffect, useState } from 'react'
+import { Component } from 'react'
+import './index.css'
 
-const CardsContainer = styled.div`
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    background: ${colors.ligthgrey};
-    margin-top: 43px;
-    border-radius: 25px;
-    padding: 20px;
-    @media screen and (max-width: 480px) {
-        padding:0 5%;
-        background: none;
-        margin-top: 10px;
-    }
-`
-
-function Home() {
-    const [apartmentsList, setApartmentsList] = useState([])
-
-    useEffect(() => {
-        async function fetchApartments() {
-            try {
-                const response = await fetch('./logements.json')
-                const apartments = await response.json()
-                setApartmentsList(apartments)
-            } finally {
-            }
+class Home extends Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            apartmentsList: [],
         }
-        fetchApartments()
-    }, [])
+    }
 
-    return (
-        <>
-            <Cover pic={pic}>Chez vous, partout et ailleurs</Cover>
-            <CardsContainer>
-                {apartmentsList.map((apartment) => (
-                    <Card
-                        key={apartment.id}
-                        title={apartment.title}
-                        id={apartment.id}
-                    />
-                ))}
-            </CardsContainer>
-        </>
-    )
+    componentDidMount() {
+        const url = './logements.json'
+        fetch(url)
+            .then((response) => response.json())
+            .then((data) => {
+                this.setState({ apartmentsList: data })
+            })
+            .catch((error) => {
+                console.log(`Erreur au fetch: ${error}`)
+            })
+    }
+
+    render() {
+        const { apartmentsList } = this.state
+        return (
+            <>
+                <Cover pic={pic}>Chez vous, partout et ailleurs</Cover>
+                <section className="home__cards">
+                    {apartmentsList.map((apartment) => (
+                        <Card
+                            key={apartment.id}
+                            title={apartment.title}
+                            cover={apartment.cover}
+                            id={apartment.id}
+                        />
+                    ))}
+                </section>
+            </>
+        )
+    }
 }
 
 export default Home

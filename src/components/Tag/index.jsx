@@ -1,27 +1,18 @@
-import styled from 'styled-components'
-import colors from '../../utils/styles/colors'
+import { Component } from 'react'
+import './index.css'
 
-const StyledTag = styled.p`
-    min-width: 115px;
-    height: 25px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: ${colors.primary};
-    border-radius: 10px;
-    color: white;
-    font-size: 14px;
-    weight: 500;
-    padding: 3px 20px;
-    margin-right: 10px;
-    @media screen and (max-width: 480px) {
-        font-size: 10px;
-        min-width: 84px;
+class Tag extends Component {
+    render() {
+        return (
+            <div className="tag__container">
+                {this.props.tags.map((tag) => (
+                    <p key={this.props.id + tag} className="tag">
+                        {tag}
+                    </p>
+                ))}
+            </div>
+        )
     }
-`
-
-function Tag({ children }) {
-    return <StyledTag>{children}</StyledTag>
 }
 
 export default Tag

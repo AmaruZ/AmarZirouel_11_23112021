@@ -1,44 +1,23 @@
+import { Component } from 'react'
 import { Link } from 'react-router-dom'
-import styled from 'styled-components'
-import colors from '../../utils/styles/colors'
+import './index.css'
 
-const StyledCard = styled(Link)`
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    width: 340px;
-    height: 340px;
-    background: ${colors.primary};
-    background: linear-gradient(
-        0deg,
-        rgba(119, 48, 48, 1) 0%,
-        rgba(255, 96, 96, 1) 100%
-    );
-    margin: 30px;
-    border-radius: 20px;
-    text-decoration: none;
-    @media screen and (max-width: 480px) {
-        margin: 10px 0;
-        height: 255px;
-        width: 100%;
+class Card extends Component {
+    render() {
+        return (
+            <Link
+                className="card__container"
+                to={`/apartment/${this.props.id}`}
+            >
+                <img
+                    className="card__cover"
+                    src={this.props.cover}
+                    alt={this.props.title}
+                />
+                <span className="card__title">{this.props.title}</span>
+            </Link>
+        )
     }
-`
-const TitleCard = styled.span`
-    font-family: Montserrat;
-    font-style: normal;
-    font-weight: 500;
-    font-size: 18px;
-    color: white;
-    margin: 20px;
-    height: 52px;
-`
-
-function Card({ title, id }) {
-    return (
-        <StyledCard to={`/apartment/${id}`}>
-            <TitleCard>{title}</TitleCard>
-        </StyledCard>
-    )
 }
 
 export default Card

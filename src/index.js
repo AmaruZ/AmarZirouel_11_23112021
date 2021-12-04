@@ -14,7 +14,6 @@ ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
       <GlobalStyle />
-
         <Header />
         <Routes>
           <Route path="/" element={<Home /> } />
@@ -22,9 +21,8 @@ ReactDOM.render(
           <Route path="/apartment/:id" element={<Apartment/>} />
           <Route path="*" element={<Error />} />
         </Routes>
-
       <Footer />      
     </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root')
-);
+)

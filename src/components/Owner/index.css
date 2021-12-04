@@ -1,0 +1,20 @@
+.owner__container {
+    display: flex;
+    align-items: flex-start;
+}
+
+.owner__name {
+    font-weight: 500;
+    font-size: 18px;
+    padding-top: 8px;
+    text-align: end;
+    margin-right: 10px;
+    line-height: 142.6%;
+    width: 90px;
+}
+
+.owner__avatar {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+}

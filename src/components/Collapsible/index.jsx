@@ -1,123 +1,79 @@
-import { useEffect, useRef, useState } from 'react'
-import styled from 'styled-components'
-import colors from '../../utils/styles/colors'
+import { createRef } from 'react'
 import chevron from '../../assets/chevron-down.svg'
+import { Component } from 'react'
+import './index.css'
 
-const CollapsibleContainer = styled.div`
-    margin-top: 30px;
-    ${(props) => props.$type === 'medium' ?
-    `
-     width: 100%;` : props.$type === 'big' && 
-     `
-     width: 45%;
-     `}
-     @media screen and (max-width: 480px) {
-        width: 100%;
+class Collapsible extends Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            isCollapse: true,
+            style: {
+                height: '0',
+                overflow: 'hidden',
+                transition: 'height 0.2s ease-out',
+            },
+        }
+        this.inputRef = createRef(0)
     }
-`
 
-const CollapseButton = styled.button`
-    position: relative;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    ${(props) =>
-        props.$type === 'medium'
-            ? `height: 47px;`
-            : props.$type === 'big' &&
-              `height: 52px;
-      `}
-    color: white;
-    background-color: ${colors.primary};
-    border: none;
-    font-family: 'Montserrat';
-    font-size: 24px;
-    cursor: pointer;
-    border-radius: 10px;
-    padding-left: 18px;
-    @media screen and (max-width: 480px) {
-        height: 30px;
-        font-size: 13px;
+    componentDidMount() {
+        this.setState({ isCollapse: true })
     }
-`
-const CollapseParentContent = styled.div`
-    margin-top: -15px;
 
-    ${(props) =>
-        props.$isCollapse
-            ? ` height: 0px;
-            overflow: hidden;
-            transition: height 0.2s ease-out;`
-            : ` height: ${
-                  props.$height ? `${props.$height.toString()}px` : 'auto' 
-                              };
-            transition: height 0.2s ease-out;`
-        }
-`
-
-const CollapseContent = styled.div`
-    background-color: ${colors.ligthgrey};
-    color: ${colors.primary};
-    font-size: 24px;
-    font-weight: 400;
-    padding: 35px 18px 20px 18px;
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
-    ${props =>
-        props.$type === "big" && "height: 250px;"}
-        @media screen and (max-width: 480px) {
-            font-size: 14px;
-            height: auto;
-        }
-`
-
-const Chevron = styled.img`
-    margin-right: 30px;
-    ${(props) =>
-        props.$isCollaps
-            ? `
-            transform: rotate(0);
-            transition: transform 0.3s;
-            `
-            : `
-            transform: rotate(-180deg);
-            transition: transform 0.3s;
-        `}
-        @media screen and (max-width: 480px) {
-            width: 20px;
-            margin-right: 10px;
-        }
-`
-
-function Collapsible({ type, collapsed, children, title }) {
-    const [isCollapse, setisCollapsed] = useState(collapsed)
-    const inputRef = useRef(0)
-
-    useEffect(() => {
-        setisCollapsed(true)
-    }, [])
-
-    return (
-        <CollapsibleContainer $type={type}>
-            <CollapseButton
-                onClick={() => {
-                    setisCollapsed(!isCollapse)
-                }}
-                $type={type}
+    render() {
+        return (
+            <div
+                className={`collapsible__container collapsible__container-${this.props.type}`}
             >
-                {title} <Chevron src={chevron} alt="" $isCollaps={isCollapse} />
-            </CollapseButton>
-            <CollapseParentContent
-                $isCollapse={isCollapse}
-                aria-expanded={isCollapse}
-                $height={inputRef.current.scrollHeight}
-                $type={type}
-            >
-                <CollapseContent ref={inputRef} $type={type}>{children}</CollapseContent>
-            </CollapseParentContent>
-        </CollapsibleContainer>
-    )
+                <button
+                    className={`collapsible__button collapsible__button-${this.props.type}`}
+                    onClick={() => {
+                        this.setState({
+                            isCollapse: !this.state.isCollapse,
+                            style: !this.state.isCollapse
+                                ? {
+                                      height: '0',
+                                      overflow: 'hidden',
+                                      transition: 'height 0.2s ease-out',
+                                  }
+                                : {
+                                      height: `${this.inputRef.current.scrollHeight.toString()}px`,
+                                      transition: 'height 0.2s ease-out',
+                                  },
+                        })
+                    }}
+                >
+                    {this.props.title}{' '}
+                    <img
+                        className={
+                            this.state.isCollapse
+                                ? `collapsible__chevron collapsible__chevron-down`
+                                : `collapsible__chevron collapsible__chevron-up`
+                        }
+                        src={chevron}
+                        alt=""
+                    />
+                </button>
+                <div
+                    className="collapsible__content-parent"
+                    aria-expanded={!this.state.isCollapse}
+                    style={this.state.style}
+                >
+                    <div
+                        className={
+                            this.props.type
+                                ? `collapsible__content collapsible__content-${this.props.type}`
+                                : `collapsible__content`
+                        }
+                        ref={this.inputRef}
+                    >
+                        {this.props.children}
+                    </div>
+                </div>
+            </div>
+        )
+    }
 }
 
 export default Collapsible
