@@ -26,18 +26,23 @@ class Gallery extends Component {
     render() {
         return (
             <div className="gallery__container">
-                <button
-                    className="btn__chevron btn__chevron-left"
-                    onClick={this.prevPic}
-                >
-                    Précédent
-                </button>
-                <button
-                    className="btn__chevron btn__chevron-right"
-                    onClick={this.nextPic}
-                >
-                    Suivant
-                </button>
+                {this.length > 1 && (
+                    <>
+                        <button
+                            className="btn__chevron btn__chevron-left"
+                            onClick={this.prevPic}
+                        >
+                            Précédent
+                        </button>
+                        <button
+                            className="btn__chevron btn__chevron-right"
+                            onClick={this.nextPic}
+                        >
+                            Suivant
+                        </button>
+                    </>
+                )}
+
                 <span className="gallery__numbering">
                     {this.state.current + 1}/{this.length}
                 </span>
