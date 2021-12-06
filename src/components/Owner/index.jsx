@@ -1,5 +1,6 @@
 import { Component } from 'react'
 import './index.css'
+import PropTypes from 'prop-types'
 
 class Owner extends Component {
     render() {
@@ -17,3 +18,8 @@ class Owner extends Component {
 }
 
 export default Owner
+
+Owner.propTypes = {
+    picture: PropTypes.string,
+    name: PropTypes.string
+}

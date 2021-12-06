@@ -1,6 +1,7 @@
 import { Component } from 'react'
 import '../../utils/styles/Atoms.css'
 import './index.css'
+import PropTypes from 'prop-types'
 
 class Gallery extends Component {
     constructor(props) {
@@ -57,3 +58,7 @@ class Gallery extends Component {
 }
 
 export default Gallery
+
+Gallery.propTypes = {
+    pictures: PropTypes.array,
+}

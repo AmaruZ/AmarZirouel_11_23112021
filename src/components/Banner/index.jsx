@@ -1,5 +1,6 @@
 import { Component } from 'react'
 import './index.css'
+import PropTypes from 'prop-types'
 
 
 class Banner extends Component{
@@ -14,3 +15,8 @@ class Banner extends Component{
 }
 
 export default Banner
+
+Banner.propTypes ={
+    type: PropTypes.string,
+    pic: PropTypes.string
+}

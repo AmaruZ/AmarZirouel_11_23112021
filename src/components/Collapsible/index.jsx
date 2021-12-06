@@ -2,6 +2,7 @@ import { createRef } from 'react'
 import chevron from '../../assets/chevron-down.svg'
 import { Component } from 'react'
 import './index.css'
+import PropTypes from 'prop-types'
 
 class Collapsible extends Component {
     constructor(props) {
@@ -77,3 +78,8 @@ class Collapsible extends Component {
 }
 
 export default Collapsible
+
+Collapsible.propTypes = {
+    type: PropTypes.string,
+    title: PropTypes.string,
+}

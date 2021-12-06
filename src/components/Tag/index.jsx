@@ -1,5 +1,6 @@
 import { Component } from 'react'
 import './index.css'
+import PropTypes from 'prop-types'
 
 class Tag extends Component {
     render() {
@@ -16,3 +17,7 @@ class Tag extends Component {
 }
 
 export default Tag
+
+Tag.propTypes = {
+    tags: PropTypes.array,
+}

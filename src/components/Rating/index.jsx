@@ -1,6 +1,7 @@
 import { Component } from 'react'
 import colors from '../../utils/styles/colors'
 import './index.css'
+import PropTypes from 'prop-types'
 
 class Rating extends Component {
     setRating() {
@@ -52,3 +53,7 @@ class Rating extends Component {
 }
 
 export default Rating
+
+Rating.propTypes = {
+    rate: PropTypes.string,
+}
