@@ -25,7 +25,10 @@ class Apartment extends Component {
         fetch(url)
             .then((response) => response.json())
             .then((data) => {
-                this.setState({ apartmentsList: data })
+                this.setState({
+                    apartmentsList: data,
+                })
+            }).then(()=>{
                 this.setState({
                     apartment: this.state.apartmentsList.find(
                         (apart) => apart.id === this.props.id.id

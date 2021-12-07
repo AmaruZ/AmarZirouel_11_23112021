@@ -22,6 +22,22 @@ class Collapsible extends Component {
         this.setState({ isCollapse: true })
     }
 
+    collapse() {
+        this.setState({
+            isCollapse: !this.state.isCollapse,
+            style: !this.state.isCollapse
+                ? {
+                      height: '0',
+                      overflow: 'hidden',
+                      transition: 'height 0.2s ease-out',
+                  }
+                : {
+                      height: `${this.inputRef.current.scrollHeight.toString()}px`,
+                      transition: 'height 0.2s ease-out',
+                  },
+        })
+    }
+
     render() {
         return (
             <div
@@ -30,19 +46,7 @@ class Collapsible extends Component {
                 <button
                     className={`collapsible__button collapsible__button-${this.props.type}`}
                     onClick={() => {
-                        this.setState({
-                            isCollapse: !this.state.isCollapse,
-                            style: !this.state.isCollapse
-                                ? {
-                                      height: '0',
-                                      overflow: 'hidden',
-                                      transition: 'height 0.2s ease-out',
-                                  }
-                                : {
-                                      height: `${this.inputRef.current.scrollHeight.toString()}px`,
-                                      transition: 'height 0.2s ease-out',
-                                  },
-                        })
+                        this.collapse()
                     }}
                 >
                     {this.props.title}{' '}

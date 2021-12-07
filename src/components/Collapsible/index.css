@@ -62,7 +62,7 @@
 }
 
 .collapsible__content-big {
-    height: 270px;
+    min-height: 270px;
 }
 
 @media screen and (max-width: 480px) {
@@ -84,5 +84,7 @@
         font-size: 14px;
         height: auto;
     }
-    
+    .collapsible__content-big {
+        min-height: auto;
+    }
 }
